@@ -39,6 +39,7 @@ namespace BackSaludMigrantes.Controllers
                     response.ErrorMessage = "No se encuentra registrado";
                     return response;
                 }
+                //prueba
 
 
                 response.MigrantsAcreditadom = registeredMigrant;
