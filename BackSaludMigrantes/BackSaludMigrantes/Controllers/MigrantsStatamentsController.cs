@@ -17,7 +17,8 @@ namespace BackSaludMigrantes.Controllers
             _dataContext = dbContext;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{idSisben}")]
+
         public ActionResult<StatamentsResponse> GetMigrationStatamentsSisben(string idSisben)
         {
             var response = new StatamentsResponse();

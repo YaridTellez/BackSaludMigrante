@@ -37,7 +37,7 @@ namespace BackSaludMigrantes.Controllers
                     return response;
                 }
 
-                response.MigrantsAcreditadom = registeredMigrant;
+                response.MigrantsStatementsFile = registeredMigrant.MigrantsStatementsFile;
                 response.IsRegistered = true;
                 return Ok(response);
             }
@@ -47,8 +47,20 @@ namespace BackSaludMigrantes.Controllers
                 return StatusCode(500, response);
             }
         }
-              
 
+       
+        [HttpGet("Nucleo/{idSisben}")]
+        public IEnumerable<MigrantsAcreditadom> GetMigrationStatamentsSisben(string idSisben)
+        {
+
+            var list = _dataContext.MigrantsAcreditadom.Where(x => x.MigrantsStatementsFile == idSisben).ToList();
+            return list;
+
+
+        }
      
+
+
+
     }
 }

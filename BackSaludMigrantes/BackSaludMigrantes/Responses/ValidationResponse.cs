@@ -6,6 +6,6 @@ namespace BackSaludMigrantes.Responses
     {
         public bool IsRegistered { get; set; }
         public string? ErrorMessage { get; set; }
-        public MigrantsAcreditadom MigrantsAcreditadom { get; set; }
+        public string MigrantsStatementsFile { get; set; }
     }
 }
