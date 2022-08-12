@@ -20,27 +20,22 @@ namespace BackSaludMigrantes.Controllers
         }
 
 
-
         [HttpPost("Validate")]
-        public ActionResult<ValidationResponse> Get(ValidationRequest validationRequest)
+        public ActionResult<ValidationResponse> RequestValidation(ValidationRequest validationRequest)
         {
             var response = new ValidationResponse();
 
             try
             {
-
                 var registeredMigrant = _dataContext.MigrantsAcreditadom.FirstOrDefault(x => x.DocNum == validationRequest.DocNum
                                                          && x.Surname == validationRequest.Surname
                                                          && x.BirthDate == validationRequest.BirthDate);
 
                 if (registeredMigrant is null)
                 {
-
                     response.ErrorMessage = "No se encuentra registrado";
                     return response;
                 }
-                //prueba
-
 
                 response.MigrantsAcreditadom = registeredMigrant;
                 response.IsRegistered = true;
@@ -52,5 +47,8 @@ namespace BackSaludMigrantes.Controllers
                 return StatusCode(500, response);
             }
         }
+              
+
+     
     }
 }
