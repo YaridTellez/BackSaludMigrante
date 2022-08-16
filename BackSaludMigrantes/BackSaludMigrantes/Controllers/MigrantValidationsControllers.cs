@@ -56,7 +56,6 @@ namespace BackSaludMigrantes.Controllers
             var list = _dataContext.MigrantsAcreditadom.Where(x => x.MigrantsStatementsFile == idSisben).ToList();
             return list;
 
-
         }
      
 
