@@ -11,18 +11,15 @@ namespace BackSaludMigrantes.Models.Entities
 
         public string Direction { get; set; }
 
-        public int Mobile { get; set; }
+        public string? Mobile { get; set; }
 
         public Location Location { get; set; }
        
-        public int LocationId { get; set; }
+        public int? LocationId { get; set; }
 
-        public DateTime StatamentsDate { get; set; }
+        public DateTime? StatamentsDate { get; set; }
 
-        public DateTime ValidityDate { get; set; }
+        public DateTime? ValidityDate { get; set; }
 
-        public string latitude { get; set; }
-
-        public string longitude { get; set; }
     }
 }

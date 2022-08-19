@@ -131,13 +131,11 @@ namespace BackSaludMigrantes.Models.Context
                 entidad.ToTable("DECLARACIONES_MIGRANTES");
                 entidad.Property(x => x.DataSISBEN).HasColumnName("FICHA_SISBEN").IsRequired();
                 entidad.HasKey(x => x.DataSISBEN);
-                entidad.Property(x => x.Direction).HasColumnName("DIRECCION").IsRequired();
-                entidad.Property(x => x.Mobile).HasColumnName("TELEFONO").IsRequired();
-                entidad.Property(x => x.LocationId).HasColumnName("LOCALIDAD").IsRequired();
-                entidad.Property(x => x.StatamentsDate).HasColumnName("FECHA_DECLARACION").IsRequired();
-                entidad.Property(x => x.ValidityDate).HasColumnName("FECHA_VIGENCIA").IsRequired();
-                entidad.Property(x => x.latitude).HasColumnName("LATITUD").IsRequired();
-                entidad.Property(x => x.longitude).HasColumnName("LONGITUD").IsRequired();
+                entidad.Property(x => x.Direction).HasColumnName("DIRECCION").HasMaxLength(150).IsRequired(false);
+                entidad.Property(x => x.Mobile).HasColumnName("TELEFONO").HasMaxLength(50).IsRequired(false);
+                entidad.Property(x => x.LocationId).HasColumnName("LOCALIDAD").IsRequired(false);
+                entidad.Property(x => x.StatamentsDate).HasColumnName("FECHA_DECLARA").IsRequired(false);
+                entidad.Property(x => x.ValidityDate).HasColumnName("FECHA_VIGENCIA").IsRequired(false);
             });
 
             modelBuilder.Entity<MigrantsAcreditadom>(entidad =>
@@ -145,17 +143,17 @@ namespace BackSaludMigrantes.Models.Context
                 entidad.ToTable("MIGRANTES_ACREDITADOM");
                 entidad.Property(x => x.MigrantId).HasColumnName("ID_MIGRANTE").IsRequired();
                 entidad.HasKey(x => x.MigrantId);
-                entidad.Property(x => x.TypeDoc).HasColumnName("DOC_TIPO").IsRequired();
-                entidad.Property(x => x.DocNum).HasColumnName("DOC_NUM").IsRequired();
-                entidad.Property(x => x.Surname).HasColumnName("APELLIDO_A").IsRequired();
-                entidad.Property(x => x.SecondSurname).HasColumnName("APELLIDO_B").IsRequired();
-                entidad.Property(x => x.FirstName).HasColumnName("NOMBRE_A").IsRequired();
-                entidad.Property(x => x.SecondName).HasColumnName("NOMBRE_B").IsRequired();
-                entidad.Property(x => x.BirthDate).HasColumnName("FECHA_NACIMIENTO").IsRequired();
-                entidad.Property(x => x.MigrantsStatementsFile).HasColumnName("FICHA").IsRequired();
-                entidad.Property(x => x.LocationName).HasColumnName("LOCALIDAD").IsRequired();
-                entidad.Property(x => x.Relationship).HasColumnName("PARENTESCO").IsRequired();
-                entidad.Property(x => x.Direction).HasColumnName("DIR_VIVIENDA").IsRequired();
+                entidad.Property(x => x.TypeDoc).HasColumnName("DOC_TIP").IsRequired(false);
+                entidad.Property(x => x.DocNum).HasColumnName("DOC_NUM").IsRequired(false);
+                entidad.Property(x => x.Surname).HasColumnName("APELLIDO_A").IsRequired(false);
+                entidad.Property(x => x.SecondSurname).HasColumnName("APELLIDO_B").IsRequired(false);
+                entidad.Property(x => x.FirstName).HasColumnName("NOMBRE_A").IsRequired(false);
+                entidad.Property(x => x.SecondName).HasColumnName("NOMBRE_B").IsRequired(false);
+                entidad.Property(x => x.BirthDate).HasColumnName("FEC_NAC").IsRequired(false);
+                entidad.Property(x => x.MigrantsStatementsFile).HasColumnName("FICHA").IsRequired(false);
+                entidad.Property(x => x.LocationName).HasColumnName("LOCALIDAD").IsRequired(false);
+                entidad.Property(x => x.Relationship).HasColumnName("PARENTESCO").IsRequired(false);
+                entidad.Property(x => x.Direction).HasColumnName("DIR_VIVIENDA").IsRequired(false);
                 entidad.Property(x => x.Nucleo).HasColumnName("NUCLEO").IsRequired();
             });          
 
@@ -169,6 +167,7 @@ namespace BackSaludMigrantes.Models.Context
 
 
         }
+
         public DbSet<Location> Location { get; set; }
         public DbSet<MigrantsStatements> MigrantsStatements { get; set; }
         public DbSet<MigrantsAcreditadom> MigrantsAcreditadom { get; set; }

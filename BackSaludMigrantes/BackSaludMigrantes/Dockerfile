@@ -12,17 +12,17 @@ EXPOSE 443
 #####################################################################
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["BackSaludMigrantes/BackSaludMigrantes/BackSaludMigrantes/BackSaludMigrantes.csproj", "."]
+COPY ["BackSaludMigrantes.csproj", "."]
 RUN dotnet restore "./BackSaludMigrantes.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "BackSaludMigrantes/BackSaludMigrantes/BackSaludMigrantes/BackSaludMigrantes.csproj" -c Release -o /app/build
+RUN dotnet build "BackSaludMigrantes.csproj" -c Release -o /app/build
 #####################################################################
 
 #Imagen Publish
 #####################################################################
 FROM build AS publish
-RUN dotnet publish "BackSaludMigrantes/BackSaludMigrantes/BackSaludMigrantes/BackSaludMigrantes.csproj" -c Release -o /app/publish
+RUN dotnet publish "BackSaludMigrantes.csproj" -c Release -o /app/publish
 
 #Mover publish al final
 #####################################################################

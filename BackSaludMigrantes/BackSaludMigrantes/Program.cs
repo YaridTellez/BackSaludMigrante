@@ -13,8 +13,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options =>
 {
 
-    options.UseSqlServer("Server=mssqlsaludmigrantes,1433;Database=SaludMigrantesDB;ConnectRetryCount=0;User Id=sa;Password=Soaint2022*;MultipleActiveResultSets=true");
-    //options.UseSqlServer("Server={{DB_ENDPOINT}};Database=SaludMigrantesDB;ConnectRetryCount=0;User Id=sa;Password=Soaint2022*;MultipleActiveResultSets=true");
+    var connectionString = builder.Configuration.GetConnectionString("Connection")
+        .Replace("{{DB_ENDPOINT}}",builder.Configuration.GetValue<string>("DB_ENDPOINT"))
+        .Replace("{{DB_PORT}}",builder.Configuration.GetValue<string>("DB_PORT"))
+        .Replace("{{DB_NAME}}",builder.Configuration.GetValue<string>("DB_NAME"))
+        .Replace("{{DB_USER}}",builder.Configuration.GetValue<string>("DB_USER"))
+        .Replace("{{DB_PASSWORD}}",builder.Configuration.GetValue<string>("DB_PASSWORD"));
+    options.UseSqlServer(connectionString);
+    //options.UseSqlServer("Server=localhost,1433;Database=SaludMigrantesDB;ConnectRetryCount=0;User Id=sa;Password=Soaint2022*;MultipleActiveResultSets=true");
 });
 
 builder.Services.AddCors(options => options.AddPolicy(name: "default",
@@ -23,7 +29,7 @@ builder.Services.AddCors(options => options.AddPolicy(name: "default",
         policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
     }));
 
-/*
+//Requiere certificado SSL en Production
 if (!builder.Environment.IsDevelopment())
 {
     builder.Services.AddHttpsRedirection(options =>
@@ -31,10 +37,17 @@ if (!builder.Environment.IsDevelopment())
         options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
         options.HttpsPort = 443;
     });
-}  */  
+}   
 
 var app = builder.Build();
 
+using (var scope =app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+    if (builder.Configuration.GetValue<bool>("DB_MIGRATE") == true)                    
+        context.Database.Migrate();    
+    
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
