@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BackSaludMigrantes.Migrations
 {
-    public partial class dataBase : Migration
+    public partial class InitialMigrate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,17 +28,17 @@ namespace BackSaludMigrantes.Migrations
                 {
                     ID_MIGRANTE = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DOC_TIPO = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DOC_NUM = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    APELLIDO_A = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    APELLIDO_B = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NOMBRE_A = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NOMBRE_B = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FECHA_NACIMIENTO = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FICHA = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LOCALIDAD = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PARENTESCO = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DIR_VIVIENDA = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DOC_TIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DOC_NUM = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    APELLIDO_A = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    APELLIDO_B = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NOMBRE_A = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NOMBRE_B = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FEC_NAC = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    FICHA = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LOCALIDAD = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PARENTESCO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DIR_VIVIENDA = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NUCLEO = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -51,13 +51,11 @@ namespace BackSaludMigrantes.Migrations
                 columns: table => new
                 {
                     FICHA_SISBEN = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DIRECCION = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TELEFONO = table.Column<int>(type: "int", nullable: false),
-                    LOCALIDAD = table.Column<int>(type: "int", nullable: false),
-                    FECHA_DECLARACION = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FECHA_VIGENCIA = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LATITUD = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LONGITUD = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DIRECCION = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    TELEFONO = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    LOCALIDAD = table.Column<int>(type: "int", nullable: true),
+                    FECHA_DECLARA = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    FECHA_VIGENCIA = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

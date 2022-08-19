@@ -1,0 +1,49 @@
+version: '3.9'
+
+services:
+  mssqlsaludmigrantes:
+    container_name: mssqlsaludmigrantes
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    user: root
+    ports:
+      - 1433:1433
+    volumes:
+      - ./data:/var/opt/mssql/data/
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Soaint2022*           
+    networks: 
+      - red_salud_migrantes       
+
+  apisaludmigrantes:
+    container_name: apisaludmigrantes
+    image: camilocalderont/saludmigrantes-api:6.0
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      #- ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
+      - DB_MIGRATE=true
+      - DB_ENDPOINT=mssqlsaludmigrantes   
+      - DB_PORT=1433
+      - DB_NAME=SaludMigrantesDB
+      - DB_USER=sa
+      - DB_PASSWORD=Soaint2022*
+    ports:
+      - 7152:80      
+    networks: 
+      - red_salud_migrantes
+    depends_on:
+      - mssqlsaludmigrantes
+
+  frontsaludmigrantes:
+    container_name: frontsaludmigrantes
+    image: camilocalderont/saludmigrantes-front:14.1.0
+    ports:
+      - 8910:80       
+    networks: 
+      - red_salud_migrantes
+    depends_on:
+      - apisaludmigrantes              
+networks:
+  red_salud_migrantes:
+    name: red_salud_migrantes

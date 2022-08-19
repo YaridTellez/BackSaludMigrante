@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackSaludMigrantes.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220811202910_dataBase")]
-    partial class dataBase
+    [Migration("20220819075348_InitialMigrate")]
+    partial class InitialMigrate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -154,32 +154,27 @@ namespace BackSaludMigrantes.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MigrantId"), 1L, 1);
 
-                    b.Property<DateTime>("BirthDate")
+                    b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2")
-                        .HasColumnName("FECHA_NACIMIENTO");
+                        .HasColumnName("FEC_NAC");
 
                     b.Property<string>("Direction")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("DIR_VIVIENDA");
 
                     b.Property<string>("DocNum")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("DOC_NUM");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("NOMBRE_A");
 
                     b.Property<string>("LocationName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("LOCALIDAD");
 
                     b.Property<string>("MigrantsStatementsFile")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("FICHA");
 
@@ -188,29 +183,24 @@ namespace BackSaludMigrantes.Migrations
                         .HasColumnName("NUCLEO");
 
                     b.Property<string>("Relationship")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("PARENTESCO");
 
                     b.Property<string>("SecondName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("NOMBRE_B");
 
                     b.Property<string>("SecondSurname")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("APELLIDO_B");
 
                     b.Property<string>("Surname")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("APELLIDO_A");
 
                     b.Property<string>("TypeDoc")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
-                        .HasColumnName("DOC_TIPO");
+                        .HasColumnName("DOC_TIP");
 
                     b.HasKey("MigrantId");
 
@@ -224,35 +214,26 @@ namespace BackSaludMigrantes.Migrations
                         .HasColumnName("FICHA_SISBEN");
 
                     b.Property<string>("Direction")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)")
                         .HasColumnName("DIRECCION");
 
-                    b.Property<int>("LocationId")
+                    b.Property<int?>("LocationId")
                         .HasColumnType("int")
                         .HasColumnName("LOCALIDAD");
 
-                    b.Property<int>("Mobile")
-                        .HasColumnType("int")
+                    b.Property<string>("Mobile")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnName("TELEFONO");
 
-                    b.Property<DateTime>("StatamentsDate")
+                    b.Property<DateTime?>("StatamentsDate")
                         .HasColumnType("datetime2")
-                        .HasColumnName("FECHA_DECLARACION");
+                        .HasColumnName("FECHA_DECLARA");
 
-                    b.Property<DateTime>("ValidityDate")
+                    b.Property<DateTime?>("ValidityDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("FECHA_VIGENCIA");
-
-                    b.Property<string>("latitude")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("LATITUD");
-
-                    b.Property<string>("longitude")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("LONGITUD");
 
                     b.HasKey("DataSISBEN");
 
